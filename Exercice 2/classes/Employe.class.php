@@ -2,15 +2,29 @@
 
 class Employe
 {
-    private $_nom;
-    private $_prenom;
+    private string $_nom;
+    private string $_prenom;
     private $_date;
-    private $_poste;
-    private $_salaire;
-    private $_service;
-    private DateTime $_dateTransfert;
+    private string $_poste;
+    private int $_salaire;
+    private string $_service;
+    private $_dateTransfert;
 
-    //--------Getter/Setter------------
+    #----------Constructor-----------
+    public function __construct(string $nom = "none", string $prenom = "none", $date, 
+    string $poste = "none", int $salaire = 0, string $service = "none", $dateTransfert)
+    {
+        $this->_nom = $nom;
+        $this->_prenom = $prenom;
+        $this->_date = $date;
+        $this->_poste = $poste;
+        $this->_salaire = $salaire;
+        $this->_service = $service;
+        $this->_dateTransfert = $dateTransfert;
+    }
+
+
+    #--------Getter/Setter------------
     //Nom
     public function setNom($nom)
     {
@@ -52,7 +66,8 @@ class Employe
     {
         $this->_salaire = $salaire;
     }
-    public function addSalaire($salaire) {
+    public function addSalaire($salaire)
+    {
         $this->_salaire += $salaire;
     }
     public function getSalaire()
@@ -77,23 +92,24 @@ class Employe
     {
         return $this->_dateTransfert;
     }
-
-    //---------Fonction---------
-    public function yearsFromStart() {
+    #---------Fonction---------
+    private function yearsFromStart()
+    {
         return date_diff($this->_date, new DateTime())->y;
     }
 
-    public function calculateBonus() {
+    private function calculateBonus()
+    {
         return $this->_salaire * (0.05 + 0.02 * $this->yearsFromStart());
     }
 
-    public function processBonus() {
-        if($this->_dateTransfert < new DateTime()) {
-            echo("<h1>" . $this->calculateBonus() . "€ a était transférer aujourd'hui le " . $this->_dateTransfert->format("d/m/Y H:m") . "</h1>");
+    public function processBonus()
+    {
+        if ($this->_dateTransfert < new DateTime()) {
+            echo ("<h1>" . $this->calculateBonus() . "€ a était transférer aujourd'hui le " . $this->_dateTransfert->format("d/m/Y H:m") . "</h1>");
             $this->addSalaire($this->calculateBonus());
         } else {
-            echo("<h1>" . $this->calculateBonus() . "€ sera transférer le " . $this->_dateTransfert->format("d/m/Y") . "</h1>");
+            echo ("<h1>" . $this->calculateBonus() . "€ sera transférer le " . $this->_dateTransfert->format("d/m/Y") . "</h1>");
         }
-        
     }
 }

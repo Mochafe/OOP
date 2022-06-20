@@ -10,14 +10,16 @@ class Magasins
     private $_adresse;
     private $_cp;
     private $_ville;
-    public $_employes = [];
+    private $_restauration;
+    private $_employes = [];
     #----------Constructor/Destructor--------
-    public function __construct($nom, $adresse, $cp, $ville)
+    public function __construct($nom, $adresse, $cp, $ville, $restauration)
     {
         $this->_nom = $nom;
         $this->_adresse = $adresse;
         $this->_cp = $cp;
         $this->_ville = $ville;
+        $this->_restauration = $restauration;
         $this->_id = Magasins::$ids;
         array_push(Magasins::$magasins, $this);
         Magasins::$ids++;
@@ -70,5 +72,9 @@ class Magasins
     }
     public function getEmployes() {
         return $this->_employes;
+    }
+    #---------Restauration--------------
+    public function getRestauration() {
+        return ($this->_restauration) ? "Restaurant" : "Tickets restaurants";
     }
 }

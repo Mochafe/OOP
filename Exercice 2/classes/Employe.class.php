@@ -112,4 +112,8 @@ class Employe
             echo ("<h1>" . $this->calculateBonus() . "€ sera transférer le " . $this->_dateTransfert->format("d/m/Y") . "</h1>");
         }
     }
+
+    public function chequeVacance() : bool {
+        return ($this->yearsFromStart() >= 1) ? true : false;
+    }
 }
